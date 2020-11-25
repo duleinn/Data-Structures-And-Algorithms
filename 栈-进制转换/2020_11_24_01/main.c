@@ -7,6 +7,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <math.h>
 
 #define OK 1
 #define ERROR 0
@@ -87,7 +88,20 @@ int main(int argc, const char * argv[]) {
     SqStack stack;
     init_stack(&stack);
     
-//    printf("请输入")
-    printf("Hello, World!\n");
+    printf("请输入二进制数\n");
+    char ch;
+    scanf("%c", &ch);
+    while (ch != '\n') {
+        push_stack(&stack, ch);
+        scanf("%c", &ch);
+    }
+    
+    int sum = 0;
+    for (int i = 0; i < length_stack(&stack); i++) {
+        ElemType e;
+        pop_stack(&stack, &e);
+        sum += (e-48) * pow(2, i);
+    }
+    printf("十进制总和：%d\n", sum);
     return 0;
 }
