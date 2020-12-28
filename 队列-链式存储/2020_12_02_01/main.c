@@ -24,19 +24,20 @@ typedef struct {
     struct QNode *rear;
 } LinkQueue;
 
-Status init_queue(LinkQueue *queue);
+Status init_queue(LinkQueue **queue);
 Status insert_queue(LinkQueue *queue, ElemType e);
 Status delete_queue(LinkQueue *queue, ElemType *e);
 Status destory_queue(LinkQueue *queue);
 
-Status init_queue(LinkQueue *queue)
+Status init_queue(LinkQueue **queue)
 {
-    struct QNode *q_node = (struct QNode *)malloc(sizeof(struct QNode));
-    if (q_node == NULL) {
+    *queue = (LinkQueue *)malloc(sizeof(LinkQueue));
+    if (*queue == NULL) {
         exit(EXIT_FAILURE);
     }
-    q_node->next = NULL;
-    queue->front = queue->rear = q_node;
+    
+    (*queue)->front = NULL;
+    (*queue)->rear = NULL;
     return OK;
 }
 
@@ -48,8 +49,18 @@ Status insert_queue(LinkQueue *queue, ElemType e)
     }
     q_node->data = e;
     q_node->next = NULL;
-    queue->rear->next = q_node;
-    queue->rear = q_node;
+    
+    if (queue->front == NULL) {
+        queue->front = q_node;
+    }
+    
+    if (queue->rear == NULL) {
+        queue->rear = q_node;
+    } else {
+        queue->rear->next = q_node;
+        queue->rear = q_node;
+    }
+    
     return OK;
 }
 
@@ -59,9 +70,9 @@ Status delete_queue(LinkQueue *queue, ElemType *e)
         return Error;
     }
     
-    struct QNode *p = queue->front->next;
+    struct QNode *p = queue->front;
     *e = p->data;
-    queue->front->next = p->next;
+    queue->front = p->next;
     if (p == queue->rear) {
         queue->rear = queue->front;
     }
@@ -81,16 +92,17 @@ Status destory_queue(LinkQueue *queue)
 }
 
 int main(int argc, const char * argv[]) {
-    LinkQueue link_queue;
+    LinkQueue *link_queue = NULL;
     init_queue(&link_queue);
-    insert_queue(&link_queue, 1);
-    insert_queue(&link_queue, 2);
+    insert_queue(link_queue, 1);
+    insert_queue(link_queue, 2);
+    insert_queue(link_queue, 3);
     
     ElemType e;
-    delete_queue(&link_queue, &e);
-    delete_queue(&link_queue, &e);
+    delete_queue(link_queue, &e);
+    delete_queue(link_queue, &e);
     
-    destory_queue(&link_queue);
+    destory_queue(link_queue);
     printf("Hello, World!\n");
     return 0;
 }
