@@ -53,7 +53,6 @@ Status insert_queue(LinkQueue *queue, ElemType e)
     if (queue->front == NULL) {
         queue->front = q_node;
     }
-    
     if (queue->rear == NULL) {
         queue->rear = q_node;
     } else {
