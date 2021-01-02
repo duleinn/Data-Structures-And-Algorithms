@@ -63,13 +63,13 @@ void create_graph(struct _M_Graph *graph)
     }
 }
 
-void display_data(struct _M_Graph *graph)
+void display_data(EdgeType (*et)[GRAPH_SIZE], int n)
 {
     int i;
     int j;
-    for (i = 0; i < GRAPH_SIZE; i++) {
+    for (i = 0; i < n; i++) {
         for (j = 0; j < GRAPH_SIZE; j++) {
-            printf("%d ", graph->arcs[i][j]);
+            printf("%d ", et[i][j]);
         }
         printf("\n");
     }
@@ -102,7 +102,7 @@ int main(int argc, const char * argv[]) {
     // insert code here...
     struct _M_Graph graph;
     create_graph(&graph);
-    display_data(&graph);
+    display_data(graph.arcs, GRAPH_SIZE);
     DFS_traverse(&graph);
     return 0;
 }
