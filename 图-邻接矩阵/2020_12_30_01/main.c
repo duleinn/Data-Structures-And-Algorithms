@@ -90,14 +90,12 @@ void DFS(struct _M_Graph *graph, int index)
 
 void DFS_traverse(struct _M_Graph *graph)
 {
-    // int row;
-    // for (row = 0; row < GRAPH_SIZE; row++) {
-    //     if (visited[row] == 0) {
-    //         DFS(graph, 0);
-    //     }
-    // }
-
-    DFS(graph, 0);
+    int row;
+    for (row = 0; row < GRAPH_SIZE; row++) {
+        if (visited[row] == 0) {
+            DFS(graph, 0);
+        }
+    }
 }
 
 int main(int argc, const char * argv[]) {
