@@ -166,7 +166,6 @@ void removeBook(struct Book **library, const char *title)
     }
     
     if (current == NULL) {
-        printf("未找到\n");
         return;
     } else {
         if (previous == NULL) {

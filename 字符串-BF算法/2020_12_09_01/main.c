@@ -31,7 +31,7 @@ int brute_force(char *s, char *p)
 
 int main(int argc, const char * argv[]) {
 
-    char *s = "abcabdffe";
+    char *s = "abcacabdffe";
     char *p = "cab";
     int res = brute_force(s, p);
     printf("");

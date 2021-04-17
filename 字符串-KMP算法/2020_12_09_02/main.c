@@ -30,7 +30,6 @@ void GetNext(char *P, int next[])
     }
 }
 
-/* 在 S 中找到 P 第一次出现的位置 */
 int KMP(char *S, char *P, int next[])
 {
     GetNext(P, next);
@@ -40,20 +39,16 @@ int KMP(char *S, char *P, int next[])
     int s_len = strlen(S);
     int p_len = strlen(S);
 
-    while (i < s_len && j < p_len) // 因为末尾 '\0' 的存在，所以不会越界
-    {
-        if (j == -1 || S[i] == P[j])  // P 的第一个字符不匹配或 S[i] == P[j]
-        {
+    while (i < s_len && j < p_len) {
+        if (j == -1 || S[i] == P[j]) {
             i++;
             j++;
+        } else {
+            j = next[j];
         }
-        else
-            j = next[j];  // 当前字符匹配失败，进行跳转
     }
-
-    if (j == p_len)  // 匹配成功
+    if (j == p_len)
         return i - j;
-    
     return -1;
 }
 

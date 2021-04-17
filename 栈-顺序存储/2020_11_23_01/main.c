@@ -60,18 +60,18 @@ int pop_sql_stack(sqStack *stack, ElemType *e)
     return TRUE;
 }
 
-int clear_sql_stack(sqStack *stack)
-{
-    stack->top = stack->base;
-    return TRUE;
-}
-
 int destroy_sql_stack(sqStack *stack)
 {
     free(stack->base);
     stack->base = NULL;
     stack->top = NULL;
     stack->stackSize = 0;
+    return TRUE;
+}
+
+int clear_sql_stack(sqStack *stack)
+{
+    stack->top = stack->base;
     return TRUE;
 }
 
